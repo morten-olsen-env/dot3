@@ -1,0 +1,1 @@
+git add --all && git commit --amend -m update && git push -f

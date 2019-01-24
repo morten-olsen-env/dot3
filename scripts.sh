@@ -1,0 +1,13 @@
+SCRIPT_PATHS=(
+  oh-my-zsh.sh
+  android.sh
+  vscode.sh
+  nvim.sh
+  go.sh
+  dotnet.sh
+  nvm.sh
+  rvm.sh
+  powershell.sh
+  pyenv.sh
+  common-apps.sh
+)

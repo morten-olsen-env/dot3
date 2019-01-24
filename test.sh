@@ -1,0 +1,1 @@
+ZDOTDIR=$PWD zsh
