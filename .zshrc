@@ -1,9 +1,11 @@
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-ROOTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+if [ -z $ROOTPATH ]; then
+  ROOTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+fi
 export ROOTDATA=$ROOTPATH/data
 
-if [ -f $ROOTPATH/scripts.sh ]; then
+if [ ! -f $ROOTPATH/scripts.sh ]; then
   cp $ROOTPATH/default-scripts.sh $ROOTPATH/scripts.sh
 fi
 source $ROOTPATH/scripts.sh

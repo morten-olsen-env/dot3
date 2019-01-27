@@ -2,7 +2,7 @@ SCRIPT_PATHS=(
   oh-my-zsh.sh
   #android.sh
   #vscode.sh
-  nvim.sh
+  #nvim.sh
   #go.sh
   #dotnet.sh
   #nvm.sh
@@ -10,4 +10,5 @@ SCRIPT_PATHS=(
   #powershell.sh
   #pyenv.sh
   #common-apps.sh
+  #tmux.sh
 )
