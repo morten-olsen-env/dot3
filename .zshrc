@@ -3,6 +3,9 @@ export LANG=en_US.UTF-8
 ROOTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 export ROOTDATA=$ROOTPATH/data
 
+if [ -f $ROOTPATH/scripts.sh ]; then
+  cp $ROOTPATH/default-scripts.sh $ROOTPATH/scripts.sh
+fi
 source $ROOTPATH/scripts.sh
 
 for SCRIPTNAME in $SCRIPT_PATHS
