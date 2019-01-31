@@ -13,7 +13,7 @@ function do_install {
 }
 
 function is_installed {
-  if [ -d $INSTALL_PATH/download/go ]; then
+  if [ -f $INSTALL_PATH/download/dotnet ]; then
     echo "true"
   else
     echo "false"
