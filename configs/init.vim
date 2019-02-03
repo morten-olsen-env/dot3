@@ -45,10 +45,24 @@ call plug#end()
 let g:jsx_ext_required = 0
 autocmd FileType octave setlocal keywordprg=xterm\ -fa\ 'DejaVu\ Sans\ Mono:style=Book'\ -fs\ 12\ -geometry\ 80x50\ -e\ info\ octave\ --vi-keys\ --index-search
 
+set lbr						" Enable line breaks
+set showbreak=+++	" Wrap-broken line prefix
+set textwidth=100	" Line wrap (number of cols)
+set showmatch	    " Highlight matching brace
+set visualbell	  " Use visual bell (no beeping)
+set incsearch 		" Makes search act like search in modern browsers
+set lazyredraw		" Don't redraw while executing macros (good performance config)
+set foldcolumn=1  " Add a bit extra margin to the left
+set ruler
 set pastetoggle=<F2>
 set background=dark
-colorscheme railscasts
+set autoread
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
+" colorscheme railscasts
 " colorscheme molokai
+colorscheme dracula
 :set number
 :set tabstop=2
 :set shiftwidth=2
@@ -114,3 +128,68 @@ map <left> <nop>
 map <right> <nop>
 
 let g:WebDevIconsNerdTreeGitPluginForceVAlign = 0
+
+" setup YCM to run on .
+if !exists("g:ycm_semantic_triggers")
+  let g:ycm_semantic_triggers = {}
+endif
+let g:ycm_semantic_triggers['typescript'] = ['.']
+
+" Fast saving
+nmap <leader>w :w!<cr>
+
+" :W sudo saves the file 
+" (useful for handling the permission-denied error)
+command W w !sudo tee % > /dev/null
+
+" A buffer becomes hidden when it is abandoned
+set hid
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+set colorcolumn=100
+
+" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
+map <space> /
+map <c-space> ?
+
+" Close the current buffer
+map <leader>bd :Bclose<cr>:tabclose<cr>gT
+" Close all the buffers
+map <leader>ba :bufdo bd<cr>
+
+map <leader>l :bnext<cr>
+map <leader>h :bprevious<cr>
+
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove 
+map <leader>t<leader> :tabnext 
+
+" Escape search with esc
+nnoremap <silent> <Esc> :nohlsearch<Bar>:echo<CR>
+
+" Toggle paste mode on and off
+map <leader>pp :setlocal paste!<cr>
+
+" Pressing ,ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Specify the behavior when switching between buffers 
+try
+ set switchbuf=useopen,usetab,newtab
+ set stal=2
+catch
+endtry
+
+" Return to last edit position when opening files (You want this!)
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe
+"normal! g'\"" | endif

@@ -40,6 +40,7 @@ function do_install {
       ykman \
       fd \
       fzf \
+      tree \
       sshfs
   fi
 }
