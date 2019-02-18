@@ -8,6 +8,7 @@ function get_env {
   echo '
 export FZF_DEFAULT_COMMAND="fd --type f"
 export PATH="'"$INSTALL_PATH"'/download/bin:$PATH"
+export PATH="'"$INSTALL_PATH"'/download/opt/curl/bin:$PATH"
   '
 }
 
@@ -25,7 +26,6 @@ function do_install {
       slack \
       protonmail-bridge \
       tunnelblick \
-      keybase \
       duet \
       veracrypt \
       gpg-suite \
@@ -38,6 +38,9 @@ function do_install {
       bitwarden-cli \
       watchman \
       ykman \
+      neovim \
+      tmux \
+      mutt \
       fd \
       fzf \
       tree \
