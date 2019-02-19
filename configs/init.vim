@@ -8,7 +8,7 @@ let g:vimwiki_list = [
 " let &runtimepath.=','.string(packagedir)
 let &runtimepath.=','.escape(expand('<sfile>:p:h'), '\,')
 let g:loaded_python_provide=1
-let g:python_host_prog = '/usr/local/bin/python2'
+let g:python_host_prog = '/usr/bin/python'
 
 syntax on
 filetype plugin indent on
@@ -22,12 +22,12 @@ Plug 'leafgarland/typescript-vim'
 Plug 'Quramy/tsuquyomi'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'Valloric/YouCompleteMe', {'do' : './install.py'}
-Plug 'jpo/vim-railscasts-theme'
+" Plug 'jpo/vim-railscasts-theme'
 Plug 'vim-scripts/FuzzyFinder'
 Plug 'vim-scripts/L9'
 Plug 'junegunn/goyo.vim'
 Plug 'yuttie/comfortable-motion.vim'
-Plug 'tomasr/molokai'
+" Plug 'tomasr/molokai'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
