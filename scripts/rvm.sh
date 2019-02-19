@@ -12,7 +12,7 @@ source "$rvm_path/scripts/rvm"
 }
 
 function do_install {
-  rvm_path="$PACKAGE_DIR/download"
+  export rvm_path="$PACKAGE_DIR/download"
   curl -sSL https://get.rvm.io | bash -s -- --ignore-dotfiles
 }
 

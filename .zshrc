@@ -9,6 +9,9 @@ if [ ! -f $ROOTPATH/scripts.sh ]; then
   cp $ROOTPATH/default-scripts.sh $ROOTPATH/scripts.sh
 fi
 source $ROOTPATH/scripts.sh
+source $ROOTPATH/functions.sh
+
+export PATH=$ROOTPATH/bin:$PATH
 
 for SCRIPTNAME in $SCRIPT_PATHS
 do
