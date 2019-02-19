@@ -62,7 +62,7 @@ set si "Smart indent
 set wrap "Wrap lines
 " colorscheme railscasts
 " colorscheme molokai
-colorscheme dracula
+" colorscheme dracula
 :set number
 :set tabstop=2
 :set shiftwidth=2
