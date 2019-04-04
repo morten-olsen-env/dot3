@@ -4,7 +4,7 @@ export ZSH=\"$INSTALL_PATH/git\"
 plugins=(
   git
 )
-export ZSH_THEME=\"gallois\"
+export ZSH_THEME=\"ys\"
 export ZSH_CUSTOM=\"$INSTALL_PATH/custom\"
 source \"\$ZSH/oh-my-zsh.sh\"
   "
