@@ -8,7 +8,7 @@ let g:vimwiki_list = [
 " let &runtimepath.=','.string(packagedir)
 let &runtimepath.=','.escape(expand('<sfile>:p:h'), '\,')
 let g:loaded_python_provide=1
-let g:python_host_prog = '/usr/bin/python'
+" let g:python_host_prog = '/usr/bin/python'
 
 syntax on
 filetype plugin indent on
@@ -19,6 +19,7 @@ Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 Plug 'scrooloose/nerdtree'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-scripts/FuzzyFinder'
+Plug 'tpope/vim-markdown'
 Plug 'vim-scripts/L9'
 Plug 'junegunn/goyo.vim'
 Plug 'yuttie/comfortable-motion.vim'
@@ -34,6 +35,8 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'vim-airline/vim-airline-themes'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'w0rp/ale'
+Plug 'morhetz/gruvbox'
+Plug 'vim-scripts/SyntaxRange'
 
 call plug#end()
 
@@ -58,6 +61,8 @@ set wrap "Wrap lines
 " colorscheme railscasts
 " colorscheme molokai
 " colorscheme dracula
+colorscheme gruvbox
+highlight Normal ctermbg=NONE
 :set number
 :set tabstop=2
 :set shiftwidth=2
@@ -94,6 +99,10 @@ set mouse=a
 :nmap <C-n> :tabnew<CR>
 :nmap <Leader>l :tabnext<CR>
 nnoremap <leader>d "_d
+
+:nmap <Leader>gd :ALEGoToDefinition<CR>
+:nmap <Leader>gds :ALEGoToDefinitionInSplit<CR>
+:nmap <Leader>gdv :ALEGoToDefinitionInVSplit<CR>
 
 " change editor line instead of actual line
 nnoremap j gj
