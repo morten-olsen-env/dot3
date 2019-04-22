@@ -1,0 +1,2 @@
+#/!bin/sh
+docker run -t --rm -p 127.0.0.1:8443:8443 --name codes -v "${PWD}:/root/project" -v "${HOME}/.codes:/config" codercom/code-server -d /config --allow-http

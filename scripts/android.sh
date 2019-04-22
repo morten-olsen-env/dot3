@@ -15,7 +15,11 @@ export PATH=\$ANDROID_HOME/platform-tools:\$PATH
 function do_install {
   echo "Installing Android"
   ANDROID_HOME=$INSTALL_PATH/download
-  URL=https://dl.google.com/android/repository/sdk-tools-darwin-3859397.zip
+  if [ $SYSTEM_TYPE == 'osx' ]; then
+    URL=https://dl.google.com/android/repository/sdk-tools-darwin-3859397.zip
+  else
+    URL=https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip
+  fi
   # TODO: Change for non darwin, to use linux version
   curl $URL -o android.zip
   mkdir -p $ANDROID_HOME
