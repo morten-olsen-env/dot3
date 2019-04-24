@@ -40,7 +40,6 @@ function do_install {
       ykman \
       neovim \
       tmux \
-      mutt \
       fd \
       fzf \
       tree \

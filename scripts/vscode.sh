@@ -16,9 +16,11 @@ function do_install {
   mkdir -p "$PACKAGE_DIR/download/code-portable-data"
   INITPATH="$PWD"
   mkdir -p "$PACKAGE_DIR/download/code-portable-data"
+  echo "OS: $SYSTEM_TYPE"
   if [ $SYSTEM_TYPE == 'osx' ]; then
+    echo "Installing as OSX"
     curl https://go.microsoft.com/fwlink/?LinkID=620882 -L -o "$PACKAGE_DIR/download/vscode.zip"
-    unzip "$PACKAGE_DIR/download/vscode.zip"
+    unzip "$PACKAGE_DIR/download/vscode.zip" -d "$PACKAGE_DIR/download/"
     rm "$PACKAGE_DIR/download/vscode.zip"
   elif [ $SYSTEM_TYPE == 'linux' ]; then
     curl https://go.microsoft.com/fwlink/?LinkID=620884 -L -o "$PACKAGE_DIR/download/vscode.tar.gz"
