@@ -19,16 +19,17 @@ function do_install {
   echo "OS: $SYSTEM_TYPE"
   if [ $SYSTEM_TYPE == 'osx' ]; then
     echo "Installing as OSX"
-    curl https://go.microsoft.com/fwlink/?LinkID=620882 -L -o "$PACKAGE_DIR/download/vscode.zip"
+    curl https://go.microsoft.com/fwlink/?LinkId=723966 -L -o "$PACKAGE_DIR/download/vscode.zip"
     unzip "$PACKAGE_DIR/download/vscode.zip" -d "$PACKAGE_DIR/download/"
     rm "$PACKAGE_DIR/download/vscode.zip"
+    mv "$PACKAGE_DIR/download/Visual Studio Code - Insiders.app" "$PACKAGE_DIR/download/Visual Studio Code.app"
+    xattr -dr com.apple.quarantine "$PACKAGE_DIR/download/Visual Studio Code.app"
   elif [ $SYSTEM_TYPE == 'linux' ]; then
     curl https://go.microsoft.com/fwlink/?LinkID=620884 -L -o "$PACKAGE_DIR/download/vscode.tar.gz"
     tar -xvf "$PACKAGE_DIR/download/vscode.tar.gz"
     rm "$PACKAGE_DIR/download/vscode.tar.gz"
   fi
   cd $PACKAGE_DIR/download
-  xattr -dr com.apple.quarantine "$PACKAGE_DIR/download/Visual Studio Code.app"
   cd $INITPATH
   mkdir -p "$PACKAGE_DIR/bin"
   echo '
