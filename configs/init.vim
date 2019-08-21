@@ -9,6 +9,7 @@ let g:vimwiki_list = [
 let &runtimepath.=','.escape(expand('<sfile>:p:h'), '\,')
 let g:loaded_python_provide=1
 " let g:python_host_prog = '/usr/bin/python'
+let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier']
 
 syntax on
 filetype plugin indent on
@@ -37,6 +38,9 @@ Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'w0rp/ale'
 Plug 'morhetz/gruvbox'
 Plug 'vim-scripts/SyntaxRange'
+Plug 'leafgarland/typescript-vim'
+Plug 'ianks/vim-tsx'
+Plug 'dikiaap/minimalist'
 
 call plug#end()
 
@@ -78,6 +82,7 @@ set backspace=2 " make backspace work like most other apps
 let g:solarized_termcolors=256
 let mapleader = ","
 let g:airline#extensions#tabline#enabled = 1
+let g:NERDTreeWinPos = "right"
 
 function! ToggleMouse()
     " check if mouse is enabled
@@ -236,6 +241,9 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>

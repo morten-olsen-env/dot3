@@ -23,17 +23,13 @@ function do_install {
     brew tap caskroom/versions
     brew cask install \
       docker \
-      slack \
       protonmail-bridge \
       tunnelblick \
-      duet \
-      veracrypt \
       gpg-suite \
       brave-browser \
       font-firacode-nerd-font \
       vlc
     brew install \
-      slackcat \
       yarn \
       bitwarden-cli \
       watchman \
@@ -41,9 +37,9 @@ function do_install {
       neovim \
       tmux \
       fd \
+      lsd \
       fzf \
-      tree \
-      sshfs
+      tree
   fi
 }
 
