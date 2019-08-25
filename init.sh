@@ -1,3 +1,4 @@
+HISTTIMEFORMAT="%d/%m/%y %T "
 ROOTPATH="$(dirname $(readlink ~/.zshrc))"
 source $ROOTPATH/.zshrc
 
@@ -9,3 +10,6 @@ fi
 
 # added by travis gem
 [ -f /home/morten/.travis/travis.sh ] && source /home/morten/.travis/travis.sh
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
