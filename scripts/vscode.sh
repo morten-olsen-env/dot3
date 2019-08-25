@@ -5,11 +5,18 @@ function is_compatable {
 }
 
 function get_env {
+  if [ $SYSTEM_TYPE == 'osx' ]; then
   echo '
 export VSCODE_PATH="'"$PACKAGE_DIR"'/download/Visual Studio Code.app"
 export PATH='"$PACKAGE_DIR"'/bin:$PATH
 export EDITOR="code --wait"
   '
+  elif [ $SYSTEM_TYPE == 'linux' ]; then
+  echo '
+export PATH="'"$PACKAGE_DIR"'/download/VSCode-linux-x64/bin:$PATH"
+export EDITOR="code --wait"
+  '
+  fi
 }
 
 function do_install {
@@ -25,13 +32,15 @@ function do_install {
     mv "$PACKAGE_DIR/download/Visual Studio Code - Insiders.app" "$PACKAGE_DIR/download/Visual Studio Code.app"
     xattr -dr com.apple.quarantine "$PACKAGE_DIR/download/Visual Studio Code.app"
   elif [ $SYSTEM_TYPE == 'linux' ]; then
-    curl https://go.microsoft.com/fwlink/?LinkID=620884 -L -o "$PACKAGE_DIR/download/vscode.tar.gz"
-    tar -xvf "$PACKAGE_DIR/download/vscode.tar.gz"
-    rm "$PACKAGE_DIR/download/vscode.tar.gz"
+    setupZip 'https://go.microsoft.com/fwlink/?LinkID=620884'
+    #curl https://go.microsoft.com/fwlink/?LinkID=620884 -L -o "$PACKAGE_DIR/download/vscode.tar.gz"
+    #tar -xvf "$PACKAGE_DIR/download/vscode.tar.gz"
+    #rm "$PACKAGE_DIR/download/vscode.tar.gz"
   fi
   cd $PACKAGE_DIR/download
   cd $INITPATH
   mkdir -p "$PACKAGE_DIR/bin"
+  mkdir -p "$PACKAGE_DIR/download/VSCode-linux-x64/data"
   echo '
   #!/usr/bin/env bash
 CONTENTS=$VSCODE_PATH/Contents
