@@ -12,6 +12,7 @@ source $ROOTPATH/scripts.sh
 source $ROOTPATH/functions.sh
 
 export PATH=$ROOTPATH/bin:$PATH
+export PATH=$HOME/.bin:$PATH
 
 for SCRIPTNAME in $SCRIPT_PATHS
 do
