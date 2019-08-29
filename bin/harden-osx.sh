@@ -33,6 +33,10 @@ function setupHostfile() {
   curl https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts | sudo tee -a /etc/hosts
 }
 
+function disableNetworkLoginPortal() {
+  sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.captive.control.plist Active -bool false
+}
+
 function deleteUser() {
   echo "Deleting admin user"
   # Delete the user
@@ -101,6 +105,7 @@ function run() {
   setupScreensaver
   disableAppleServices
   enableFirmwarePassword
+  disableNetworkLoginPortal
   setupFirewall
   setupHostfile
   showHiddenFiles
