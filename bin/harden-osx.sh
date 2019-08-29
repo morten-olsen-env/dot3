@@ -29,6 +29,10 @@ function createUser() {
   sudo dscl . -passwd /Users/bob
 }
 
+function setupHostfile() {
+  curl https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts | sudo tee -a /etc/hosts
+}
+
 function deleteUser() {
   echo "Deleting admin user"
   # Delete the user
@@ -46,7 +50,7 @@ function downgrade() {
   sudo dscl . -delete /Groups/admin GroupMembers $GUID
 }
 
-function enableFirewallPassword() {
+function enableFirmwarePassword() {
   # TODO: Figure out how to only set if not already set
   #sudo firmwarepasswd -setpasswd -setmode command
 }
@@ -96,8 +100,9 @@ function disableAppleServices() {
 function run() {
   setupScreensaver
   disableAppleServices
-  enableFirewallPassword
+  enableFirmwarePassword
   setupFirewall
+  setupHostfile
   showHiddenFiles
   id -u bob && deleteUser
   id -u bob || createUser && downgrade
