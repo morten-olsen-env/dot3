@@ -1,4 +1,5 @@
 HISTTIMEFORMAT="%d/%m/%y %T "
+export HOMEBREW_NO_ANALYTICS=1
 ROOTPATH="$(dirname $(readlink ~/.zshrc))"
 source $ROOTPATH/.zshrc
 
