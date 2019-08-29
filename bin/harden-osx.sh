@@ -81,26 +81,32 @@ function setupScreensaver() {
   echo "Setting up screen saver"
   # Enable password on screen saver
   defaults write com.apple.screensaver askForPassword -int 1
+  sudo defaults write com.apple.screensaver askForPassword -int 1
   # Require password as soon as it enters screen saver/locked
   defaults write com.apple.screensaver askForPasswordDelay -int 0
+  sudo defaults write com.apple.screensaver askForPasswordDelay -int 0
 }
 
 function showHiddenFiles() {
   echo "Enabling hidden files and extensions"
   # Show hidden files in finder
   defaults write com.apple.finder AppleShowAllFiles -bool true
+  sudo defaults write com.apple.finder AppleShowAllFiles -bool true
   # Show Library in finder
   chflags nohidden ~/Library
   # Show extensions on all files
   defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+  sudo defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 }
 
 function disableAppleServices() {
   echo "Disabling Apple services"
   # Don't automatically save new documents to iCloud
   defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+  sudo defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
   # Don't show crash report dialog
   defaults write com.apple.CrashReporter DialogType none
+  sudo defaults write com.apple.CrashReporter DialogType none
   # Disable bonjore zeroconfig
   sudo defaults write /Library/Preferences/com.apple.mDNSResponder.plist NoMulticastAdvertisements -bool YES
 }
