@@ -37,6 +37,10 @@ function disableNetworkLoginPortal() {
   sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.captive.control.plist Active -bool false
 }
 
+function setupUmask() {
+  sudo launchctl config user umask 077
+}
+
 function deleteUser() {
   echo "Deleting admin user"
   # Delete the user
@@ -106,6 +110,7 @@ function run() {
   disableAppleServices
   enableFirmwarePassword
   disableNetworkLoginPortal
+  setupUmask
   setupFirewall
   setupHostfile
   showHiddenFiles
