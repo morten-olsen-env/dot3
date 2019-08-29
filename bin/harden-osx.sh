@@ -29,6 +29,18 @@ function createUser() {
   sudo dscl . -passwd /Users/bob
 }
 
+function setupHostfile() {
+  curl https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts | sudo tee -a /etc/hosts
+}
+
+function disableNetworkLoginPortal() {
+  sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.captive.control.plist Active -bool false
+}
+
+function setupUmask() {
+  sudo launchctl config user umask 077
+}
+
 function deleteUser() {
   echo "Deleting admin user"
   # Delete the user
@@ -46,7 +58,7 @@ function downgrade() {
   sudo dscl . -delete /Groups/admin GroupMembers $GUID
 }
 
-function enableFirewallPassword() {
+function enableFirmwarePassword() {
   # TODO: Figure out how to only set if not already set
   #sudo firmwarepasswd -setpasswd -setmode command
 }
@@ -96,8 +108,11 @@ function disableAppleServices() {
 function run() {
   setupScreensaver
   disableAppleServices
-  enableFirewallPassword
+  enableFirmwarePassword
+  disableNetworkLoginPortal
+  setupUmask
   setupFirewall
+  setupHostfile
   showHiddenFiles
   id -u bob && deleteUser
   id -u bob || createUser && downgrade
