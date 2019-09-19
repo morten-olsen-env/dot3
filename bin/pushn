@@ -5,6 +5,11 @@ if [ ! -f "$HOME/.pushn" ]; then
   exit 1
 fi
 
+if [ ! -r "$HOME/.pushn" ]; then
+  echo "Can't read settings file"
+  exit 3
+fi
+
 if [ "`stat -c %A \"$HOME/.pushn\"`" != '-rw-------' ]; then
   echo "Settings file must be -rw------- is `stat -c %A \"$HOME/.pushn\"`"
   exit 2
@@ -12,7 +17,7 @@ fi
 
 source "$HOME/.pushn"
 
-MESSAGE=$(</dev/stdin)
+MESSAGE="CMD: $(</dev/stdin)"
 
 curl -s \
   --form-string "token=$APP_TOKEN" \
