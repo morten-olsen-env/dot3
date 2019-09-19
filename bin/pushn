@@ -12,7 +12,7 @@ fi
 
 source "$HOME/.pushn"
 
-MESSAGE="$@"
+MESSAGE=$(</dev/stdin)
 
 curl -s \
   --form-string "token=$APP_TOKEN" \
