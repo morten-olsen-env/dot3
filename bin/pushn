@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ ! -f "$HOME/.pushn" ]; then
+  echo "No settings file in ~/.pushn"
+  exit 1
+fi
+
+if [ "`stat -c %A \"$HOME/.pushn\"`" != '-rw-------' ]; then
+  echo "Settings file must be -rw------- is `stat -c %A \"$HOME/.pushn\"`"
+  exit 2
+fi
+
+source "$HOME/.pushn"
+
+MESSAGE="$@"
+
+curl -s \
+  --form-string "token=$APP_TOKEN" \
+  --form-string "user=$USER_KEY" \
+  --form-string "message=$MESSAGE" \
+  https://api.pushover.net/1/messages.json > /dev/null
