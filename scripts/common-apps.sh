@@ -36,6 +36,7 @@ function do_install {
       ykman \
       neovim \
       tmux \
+      tehfuck \
       fd \
       lsd \
       fzf \

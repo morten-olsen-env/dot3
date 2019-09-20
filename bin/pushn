@@ -33,9 +33,9 @@ fi
 source "$CONFIG_LOCATION"
 
 if [[ ! -z "$1" ]]; then
-  MESSAGE="$USER@$HOST: $1"
+  MESSAGE="$USER@$HOSTNAME: $1"
 else
-  MESSAGE="$USER@$HOST: $(</dev/stdin)"
+  MESSAGE="$USER@$HOSTNAME: $(</dev/stdin)"
   echo $MESSAGE
 fi
 

@@ -14,3 +14,6 @@ fi
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+if hash thefuck 2>/dev/null; then
+  eval $(thefuck --alias)
+fi
