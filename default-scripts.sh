@@ -1,6 +1,7 @@
 SCRIPT_PATHS=(
   oh-my-zsh.sh
   #android.sh
+  #android-studio-paths.sh
   #vscode.sh
   #nvim.sh
   #go.sh

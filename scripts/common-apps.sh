@@ -19,14 +19,13 @@ function do_install {
       curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C "$INSTALL_PATH/download"
     fi
     export PATH="$INSTALL_PATH/download/bin:$PATH"
-    brew tap caskroom/fonts
-    brew tap caskroom/versions
+    brew tap homebrew/cask-fonts
+    brew tap homebrew/cask-versions
     brew cask install \
       docker \
       protonmail-bridge \
       tunnelblick \
       gpg-suite \
-      brave-browser \
       font-firacode-nerd-font \
       vlc
     brew install \
@@ -34,9 +33,8 @@ function do_install {
       bitwarden-cli \
       watchman \
       ykman \
-      neovim \
       tmux \
-      tehfuck \
+      thefuck \
       fd \
       lsd \
       fzf \

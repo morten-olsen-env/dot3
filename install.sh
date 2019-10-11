@@ -1,5 +1,6 @@
 INIT_DIR=$PWD
 export DOT_FILE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
+echo "source $INIT_DIR/main.sh" > init.sh
 
 if [ -f $HOME/.zshrc ]; then
   read -p "a zsh config is already installed, do you wish to override it? [y/N]" yn

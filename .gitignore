@@ -1,3 +1,4 @@
 /data
 .zcompdump-*
 /scripts.sh
+/init.sh

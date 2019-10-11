@@ -17,3 +17,5 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 if hash thefuck 2>/dev/null; then
   eval $(thefuck --alias)
 fi
+
+#export PATH="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home/bin:$PATH:$HOME/Library/Android/sdk/platform-tools";
