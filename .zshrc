@@ -9,6 +9,7 @@ export ROOTDATA=$ROOTPATH/data
 if [ ! -f $ROOTPATH/scripts.sh ]; then
   cp $ROOTPATH/default-scripts.sh $ROOTPATH/scripts.sh
 fi
+source $ROOTPATH/aliases.sh
 source $ROOTPATH/scripts.sh
 source $ROOTPATH/functions.sh
 
