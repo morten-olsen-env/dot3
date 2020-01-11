@@ -1,1 +1,0 @@
-curl "https://api.github.com/users/$1/gpg_keys" | fx 'this[0].raw_key' | gpg --import
