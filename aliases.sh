@@ -39,3 +39,11 @@ if type _git &> /dev/null; then
 		complete -o default -o nospace -F _git g;
 	fi
 fi;
+
+alias copy='xsel -ib'
+
+if type hub &> /dev/null; then
+	eval "$(hub alias -s)"
+fi
+
+alias bright='xrandr --output eDP-1 --brightness $1'

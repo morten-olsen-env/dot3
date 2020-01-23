@@ -2,7 +2,7 @@ function get_env {
   echo '
 export VIM_BASE_PATH="'"$PACKAGE_DIR"'"
 export VIM_PLUGIN_PATH="$VIM_BASE_PATH/plugged"
-export VIM_EXECUTABLE="$VIM_BASE_PATH/download/nvim-osx64/bin/nvim"
+export VIM_EXECUTABLE="nvim"
 alias vim="$VIM_EXECUTABLE -u $VIM_BASE_PATH/init.vim -N"
 export EDITOR="$VIM_EXECUTABLE -u $VIM_BASE_PATH/init.vim -N"
   '

@@ -2,7 +2,7 @@
 :let basedir = $VIM_BASE_PATH
 
 let g:vimwiki_list = [
-    \{'path': basedir . '/wiki/index.wiki'}
+    \{'path': '~/wiki/index.wiki'}
 \]
 
 " let &runtimepath.=','.string(packagedir)
@@ -41,6 +41,7 @@ Plug 'vim-scripts/SyntaxRange'
 Plug 'leafgarland/typescript-vim'
 Plug 'ianks/vim-tsx'
 Plug 'dikiaap/minimalist'
+Plug 'altercation/vim-colors-solarized'
 
 call plug#end()
 
@@ -98,6 +99,7 @@ set mouse=a
 
 " Key bindings
 :nmap <Leader>m :call ToggleMouse()<CR>
+:nmap <Leader>q :bd<CR>
 :nmap <Leader>n :NERDTreeToggle<CR>
 :nmap <Leader>df :Goyo<CR>
 :nmap <Leader>b :FufBuffer<CR>
