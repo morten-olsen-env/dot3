@@ -13,6 +13,9 @@ let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-emmet',
 
 syntax on
 filetype plugin indent on
+set termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 call plug#begin(packagedir)
 
@@ -47,6 +50,7 @@ Plug 'pbrisbin/vim-mkdir'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'jreybert/vimagit'
+Plug 'lifepillar/vim-solarized8'
 
 call plug#end()
 
@@ -60,7 +64,7 @@ set showmatch	    " Highlight matching brace
 set visualbell	  " Use visual bell (no beeping)
 set incsearch 		" Makes search act like search in modern browsers
 set lazyredraw		" Don't redraw while executing macros (good performance config)
-set foldcolumn=0
+set foldcolumn=1
 set ruler
 set pastetoggle=<F2>
 set background=dark
@@ -74,7 +78,6 @@ set timeoutlen=500
 " colorscheme molokai
 " colorscheme dracula
 " colorscheme gruvbox
-colorscheme solarized
 highlight Normal ctermbg=NONE
 set number relativenumber
 set nu rnu
@@ -365,3 +368,22 @@ let g:lightline = {
       \ },
       \ }
 
+function! s:goyo_enter()
+  if executable('tmux') && strlen($TMUX)
+    silent !tmux set status off
+    silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  endif
+  set number relativenumber
+  set nu rnu
+endfunction
+
+function! s:goyo_leave()
+  if executable('tmux') && strlen($TMUX)
+    silent !tmux set status on
+    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  endif
+endfunction
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+colorscheme solarized8
