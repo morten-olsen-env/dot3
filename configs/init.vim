@@ -166,6 +166,9 @@ let g:which_key_map[','] = { 'name': 'which_key_ignore' }
 let g:which_key_map['/'] = { 'name': 'which_key_ignore' }
 let g:which_key_map['a'] = { 'name': 'which_key_ignore' }
 
+let g:which_key_map['!'] = 'ripgrep'
+nnoremap <Leader>!  :Rg!<cr>
+
 let g:which_key_map['q'] = { 'name': 'close-buffer' }
 nmap <Leader>q :bd<CR>
 
