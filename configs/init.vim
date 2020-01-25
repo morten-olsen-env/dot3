@@ -109,7 +109,6 @@ nmap <Leader>mt :call ToggleMouse()<CR>
 nmap <Leader>q :bd<CR>
 nmap <Leader>nt :NERDTreeToggle<CR>
 nmap <Leader>df :Goyo<CR>
-nnoremap <leader>d "_d
 :nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
 
 nmap <leader>fw :w!<cr>
