@@ -45,6 +45,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'severin-lemaignan/vim-minimap'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'MattesGroeger/vim-bookmarks'
+Plug 'pbogut/fzf-mru.vim'
+Plug 'jreybert/vimagit'
 
 call plug#end()
 
@@ -58,7 +60,7 @@ set showmatch	    " Highlight matching brace
 set visualbell	  " Use visual bell (no beeping)
 set incsearch 		" Makes search act like search in modern browsers
 set lazyredraw		" Don't redraw while executing macros (good performance config)
-set foldcolumn=1  " Add a bit extra margin to the left
+set foldcolumn=0
 set ruler
 set pastetoggle=<F2>
 set background=dark
@@ -74,17 +76,18 @@ set timeoutlen=500
 " colorscheme gruvbox
 colorscheme solarized
 highlight Normal ctermbg=NONE
-:set number
-:set tabstop=2
-:set shiftwidth=2
-:set expandtab
-:set hlsearch
+set number relativenumber
+set nu rnu
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set hlsearch
 set nobackup
 set noswapfile
 let g:comfortable_motion_friction = 80.0
 let g:comfortable_motion_air_drag = 2.0
 " set wildignore=*.swp,*.bak,*.pyc,*.class
-:set hlsearch 
+set hlsearch 
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
 set t_Co=256
 set backspace=2 " make backspace work like most other apps
@@ -95,6 +98,13 @@ let g:WebDevIconsNerdTreeGitPluginForceVAlign = 0
 let g:NERDTreeWinPos = "right"
 let g:bookmark_auto_close = 1
 let g:bookmark_auto_save = 1
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '>'
+let g:gitgutter_sign_removed = '-'
+let g:gitgutter_sign_removed_first_line = '^'
+let g:gitgutter_sign_modified_removed = '<'
+let g:gitgutter_override_sign_column_highlight = 1
+let g:gitgutter_map_keys = 0
 
 function! ToggleMouse()
     " check if mouse is enabled
@@ -152,6 +162,9 @@ let g:which_key_map = {}
 
 let g:which_key_map['w'] = { 'name': 'wiki' }
 let g:which_key_map['h'] = { 'name': 'which_key_ignore' }
+let g:which_key_map[','] = { 'name': 'which_key_ignore' }
+let g:which_key_map['/'] = { 'name': 'which_key_ignore' }
+let g:which_key_map['a'] = { 'name': 'which_key_ignore' }
 
 let g:which_key_map['q'] = { 'name': 'close-buffer' }
 nmap <Leader>q :bd<CR>
@@ -171,6 +184,8 @@ let g:which_key_map.f.o = 'Find file'
 nmap <Leader>fo :Files<CR>
 let g:which_key_map.f.c = 'Change PWD to dir of current buffer'
 map <leader>fc :cd %:p:h<cr>:pwd<cr>
+let g:which_key_map.f.r = 'find-recent-file'
+nnoremap <silent> <Leader>fr :FZFMru<CR>
 
 let g:which_key_map['b'] = { 'name': 'buffers' }
 let g:which_key_map.b.f = 'find buffer'
@@ -191,6 +206,17 @@ map <leader>mp :setlocal paste!<cr>
 let g:which_key_map.m.s = 'Toggle spell checking'
 map <leader>ms :setlocal spell!<cr>
 
+let g:which_key_map['g'] = { 'name': 'git' }
+let g:which_key_map.g.n = 'git-next-hunk'
+nmap <leader>gn :GitGutterNextHunk<cr>
+let g:which_key_map.g.p = 'git-prev-hunk'
+nmap <leader>gp :GitGutterPrevHunk<cr>
+let g:which_key_map.g.a = 'git-stage-hunk'
+nmap <leader>ga :GitGutterStageHunk<cr>
+let g:which_key_map.g.u = 'git-undo-hunk'
+nmap <leader>gu :GitGutterUndoHunk<cr>
+let g:which_key_map.g.s = 'git-status'
+nnoremap <leader>gs :Magit<CR>
 
 let g:which_key_map['c'] = { 'name': 'coc actions' }
 nmap <silent> <leader>cgd <Plug>(coc-definition)
@@ -220,22 +246,14 @@ nnoremap <silent> <leader>cj  :<C-u>CocNext<CR>
 nnoremap <silent> <leader>ck  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <leader>cr  :<C-u>CocListResume<CR>
-nmap <leader>cqf  <Plug>(coc-fix-current)
-nmap <silent> crf <Plug>(coc-references)
+nmap <leader>cfc  <Plug>(coc-fix-current)
+nmap <leader>cfa <Plug>(coc-codeaction)
+nmap <silent> csr <Plug>(coc-references)
 " Remap for rename current word
 nmap <leader>cr <Plug>(coc-rename)
 
 nnoremap <silent> <Leader>v+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>v- :exe "resize " . (winheight(0) * 2/3)<CR>
-
-
-
-
-" change editor line instead of actual line
-" nnoremap j gj
-" nnoremap k gk
-
-
 
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
