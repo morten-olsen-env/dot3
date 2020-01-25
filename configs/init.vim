@@ -104,6 +104,7 @@ endfunc
 set mouse=a
 
 " Key bindings
+nmap s <Plug>(easymotion-s2)
 nmap <Leader>mt :call ToggleMouse()<CR>
 nmap <Leader>q :bd<CR>
 nmap <Leader>nt :NERDTreeToggle<CR>
@@ -113,6 +114,7 @@ nnoremap <leader>d "_d
 
 nmap <leader>fw :w!<cr>
 nmap <Leader>fo :Files<CR>
+nmap <C-p> :Files<CR>
 
 " Close the current buffer
 map <leader>bd :bd<cr>
@@ -132,9 +134,9 @@ map <leader>ss :setlocal spell!<cr>
 map <leader>dc :cd %:p:h<cr>:pwd<cr>
 
 " Remap keys for gotos
-nmap <silent> cgd <Plug>(coc-definition)
-nmap <silent> cgy <Plug>(coc-type-definition)
-nmap <silent> cgi <Plug>(coc-implementation)
+nmap <silent> <leader>cgd <Plug>(coc-definition)
+nmap <silent> <leader>cgy <Plug>(coc-type-definition)
+nmap <silent> <leader>cgi <Plug>(coc-implementation)
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
 vmap <leader>a  <Plug>(coc-codeaction-selected)
@@ -158,18 +160,27 @@ nnoremap <silent> <leader>cj  :<C-u>CocNext<CR>
 " Do default action for previous item.
 nnoremap <silent> <leader>ck  :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent> <space>cr  :<C-u>CocListResume<CR>
+nnoremap <silent> <leader>cr  :<C-u>CocListResume<CR>
 nmap <leader>cqf  <Plug>(coc-fix-current)
 nmap <silent> crf <Plug>(coc-references)
 " Remap for rename current word
 nmap <leader>cr <Plug>(coc-rename)
 
+nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+
+" move among buffers with CTRL
+map <M-l> :bnext<CR>
+map <M-h> :bprev<CR>
+
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+
+
 " change editor line instead of actual line
 " nnoremap j gj
 " nnoremap k gk
-
-nnoremap j jzz
-nnoremap k kzz
 
 " Easy window navigation
 map <C-h> <C-w>h
@@ -261,12 +272,6 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
-
-" Use K for show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
 function! s:show_documentation()
   if &filetype == 'vim'
     execute 'h '.expand('<cword>')
@@ -305,7 +310,3 @@ let g:lightline = {
       \ },
       \ }
 
-
-
-
-"""""" END COG CONFIG
