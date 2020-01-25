@@ -42,7 +42,9 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'liuchengxu/vim-which-key'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'severin-lemaignan/vim-minimap'
 Plug 'pbrisbin/vim-mkdir'
+Plug 'MattesGroeger/vim-bookmarks'
 
 call plug#end()
 
@@ -65,6 +67,7 @@ set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
 set scrolloff=999
+set timeoutlen=500
 " colorscheme railscasts
 " colorscheme molokai
 " colorscheme dracula
@@ -87,9 +90,11 @@ set t_Co=256
 set backspace=2 " make backspace work like most other apps
 let g:solarized_termcolors=256
 let mapleader = ","
-nnoremap <silent> <leader> :WhichKey ','<CR>
 let g:airline#extensions#tabline#enabled = 1
+let g:WebDevIconsNerdTreeGitPluginForceVAlign = 0
 let g:NERDTreeWinPos = "right"
+let g:bookmark_auto_close = 1
+let g:bookmark_auto_save = 1
 
 function! ToggleMouse()
     " check if mouse is enabled
@@ -103,36 +108,91 @@ function! ToggleMouse()
 endfunc
 set mouse=a
 
-" Key bindings
-nmap s <Plug>(easymotion-s2)
-nmap <Leader>mt :call ToggleMouse()<CR>
-nmap <Leader>q :bd<CR>
-nmap <Leader>nt :NERDTreeToggle<CR>
-nmap <Leader>df :Goyo<CR>
-:nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
+" ===========================
+" Non-leader keybindings
+" ===========================
 
-nmap <leader>fw :w!<cr>
-nmap <Leader>fo :Files<CR>
+nnoremap <silent> <leader> :WhichKey ','<CR>
 nmap <C-p> :Files<CR>
-
-" Close the current buffer
-map <leader>bd :bd<cr>
-" Close all the buffers
-map <leader>ba :bufdo bd<cr>
-
 " Escape search with esc
 nnoremap <silent> <Esc> :nohlsearch<Bar>:echo<CR>
+" move among buffers with Meta
+map <M-k> :bnext<CR>
+map <M-j> :bprev<CR>
+" Easy window navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
 
-" Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
+" remove search highlights"
+nmap <silent> ,/ :nohlsearch<CR>
 
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
+" edit file as sudo
+cmap w!! w !sudo tee % >/dev/null
 
-" Switch CWD to the directory of the open buffer
-map <leader>dc :cd %:p:h<cr>:pwd<cr>
+" learner mode
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
 
-" Remap keys for gotos
+nmap s <Plug>(easymotion-s2)
+
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+
+" ===========================
+" Leader keybindings
+" ===========================
+
+call which_key#register(',', "g:which_key_map")
+let g:which_key_map = {}
+
+let g:which_key_map['w'] = { 'name': 'wiki' }
+let g:which_key_map['h'] = { 'name': 'which_key_ignore' }
+
+let g:which_key_map['q'] = { 'name': 'close-buffer' }
+nmap <Leader>q :bd<CR>
+
+let g:which_key_map['n'] = { 'name': 'nerdtree' }
+let g:which_key_map.n.t = 'Toggle nerdtree'
+nmap <Leader>nt :NERDTreeToggle<CR>
+
+let g:which_key_map['d'] = { 'name': 'display' }
+let g:which_key_map.d.f = 'distraction-free'
+nmap <Leader>df :Goyo<CR>
+
+let g:which_key_map['f'] = { 'name': 'files' }
+let g:which_key_map.f.w = 'Save file'
+nmap <leader>fw :w!<cr>
+let g:which_key_map.f.o = 'Find file'
+nmap <Leader>fo :Files<CR>
+let g:which_key_map.f.c = 'Change PWD to dir of current buffer'
+map <leader>fc :cd %:p:h<cr>:pwd<cr>
+
+let g:which_key_map['b'] = { 'name': 'buffers' }
+let g:which_key_map.b.f = 'find buffer'
+nmap <leader>bf :Buffers<CR>
+let g:which_key_map.b.d = 'close current buffer'
+map <leader>bd :bd<cr>
+let g:which_key_map.b.a = 'close all buffers'
+map <leader>ba :bufdo bd<cr>
+
+
+let g:which_key_map['m'] = { 'name': 'misc' }
+let g:which_key_map.m.t = 'Toggle mouse'
+nmap <Leader>mt :call ToggleMouse()<CR>
+let g:which_key_map.m.z = 'Toggle centering'
+nnoremap <Leader>mz :let &scrolloff=999-&scrolloff<CR>
+let g:which_key_map.m.p = 'Toggle paste mode'
+map <leader>mp :setlocal paste!<cr>
+let g:which_key_map.m.s = 'Toggle spell checking'
+map <leader>ms :setlocal spell!<cr>
+
+
+let g:which_key_map['c'] = { 'name': 'coc actions' }
 nmap <silent> <leader>cgd <Plug>(coc-definition)
 nmap <silent> <leader>cgy <Plug>(coc-type-definition)
 nmap <silent> <leader>cgi <Plug>(coc-implementation)
@@ -165,15 +225,9 @@ nmap <silent> crf <Plug>(coc-references)
 " Remap for rename current word
 nmap <leader>cr <Plug>(coc-rename)
 
-nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+nnoremap <silent> <Leader>v+ :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>v- :exe "resize " . (winheight(0) * 2/3)<CR>
 
-" move among buffers with CTRL
-map <M-l> :bnext<CR>
-map <M-h> :bprev<CR>
-
-" Use K for show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 
 
@@ -181,25 +235,6 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 " nnoremap j gj
 " nnoremap k gk
 
-" Easy window navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
-
-" remove search highlights"
-nmap <silent> ,/ :nohlsearch<CR>
-
-" edit file as sudo
-cmap w!! w !sudo tee % >/dev/null
-
-" learner mode
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
-
-let g:WebDevIconsNerdTreeGitPluginForceVAlign = 0
 
 
 " :W sudo saves the file 
