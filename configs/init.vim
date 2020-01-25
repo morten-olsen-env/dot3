@@ -18,10 +18,7 @@ call plug#begin(packagedir)
 
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 Plug 'scrooloose/nerdtree'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'vim-scripts/FuzzyFinder'
 Plug 'tpope/vim-markdown'
-Plug 'vim-scripts/L9'
 Plug 'junegunn/goyo.vim'
 Plug 'yuttie/comfortable-motion.vim'
 Plug 'tpope/vim-fugitive'
@@ -42,6 +39,10 @@ Plug 'leafgarland/typescript-vim'
 Plug 'ianks/vim-tsx'
 Plug 'dikiaap/minimalist'
 Plug 'altercation/vim-colors-solarized'
+Plug 'liuchengxu/vim-which-key'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'pbrisbin/vim-mkdir'
 
 call plug#end()
 
@@ -63,10 +64,12 @@ set autoread
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
+set scrolloff=999
 " colorscheme railscasts
 " colorscheme molokai
 " colorscheme dracula
-colorscheme gruvbox
+" colorscheme gruvbox
+colorscheme solarized
 highlight Normal ctermbg=NONE
 :set number
 :set tabstop=2
@@ -75,6 +78,8 @@ highlight Normal ctermbg=NONE
 :set hlsearch
 set nobackup
 set noswapfile
+let g:comfortable_motion_friction = 80.0
+let g:comfortable_motion_air_drag = 2.0
 " set wildignore=*.swp,*.bak,*.pyc,*.class
 :set hlsearch 
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
@@ -82,6 +87,7 @@ set t_Co=256
 set backspace=2 " make backspace work like most other apps
 let g:solarized_termcolors=256
 let mapleader = ","
+nnoremap <silent> <leader> :WhichKey ','<CR>
 let g:airline#extensions#tabline#enabled = 1
 let g:NERDTreeWinPos = "right"
 
@@ -98,22 +104,72 @@ endfunc
 set mouse=a
 
 " Key bindings
-:nmap <Leader>m :call ToggleMouse()<CR>
-:nmap <Leader>q :bd<CR>
-:nmap <Leader>n :NERDTreeToggle<CR>
-:nmap <Leader>df :Goyo<CR>
-:nmap <Leader>b :FufBuffer<CR>
-:nmap <C-n> :tabnew<CR>
-:nmap <Leader>l :tabnext<CR>
+nmap <Leader>mt :call ToggleMouse()<CR>
+nmap <Leader>q :bd<CR>
+nmap <Leader>nt :NERDTreeToggle<CR>
+nmap <Leader>df :Goyo<CR>
 nnoremap <leader>d "_d
+:nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
 
-:nmap <Leader>gd :ALEGoToDefinition<CR>
-:nmap <Leader>gds :ALEGoToDefinitionInSplit<CR>
-:nmap <Leader>gdv :ALEGoToDefinitionInVSplit<CR>
+nmap <leader>fw :w!<cr>
+nmap <Leader>fo :Files<CR>
+
+" Close the current buffer
+map <leader>bd :bd<cr>
+" Close all the buffers
+map <leader>ba :bufdo bd<cr>
+
+" Escape search with esc
+nnoremap <silent> <Esc> :nohlsearch<Bar>:echo<CR>
+
+" Toggle paste mode on and off
+map <leader>pp :setlocal paste!<cr>
+
+" Pressing ,ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
+" Switch CWD to the directory of the open buffer
+map <leader>dc :cd %:p:h<cr>:pwd<cr>
+
+" Remap keys for gotos
+nmap <silent> cgd <Plug>(coc-definition)
+nmap <silent> cgy <Plug>(coc-type-definition)
+nmap <silent> cgi <Plug>(coc-implementation)
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+vmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ca  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+" Show all diagnostics
+nnoremap <silent> <leader>cdn  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <leader>cem  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <leader>ccs  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <leader>cso  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>css :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <leader>cj  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <leader>ck  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>cr  :<C-u>CocListResume<CR>
+nmap <leader>cqf  <Plug>(coc-fix-current)
+nmap <silent> crf <Plug>(coc-references)
+" Remap for rename current word
+nmap <leader>cr <Plug>(coc-rename)
 
 " change editor line instead of actual line
-nnoremap j gj
-nnoremap k gk
+" nnoremap j gj
+" nnoremap k gk
+
+nnoremap j jzz
+nnoremap k kzz
 
 " Easy window navigation
 map <C-h> <C-w>h
@@ -135,8 +191,6 @@ map <right> <nop>
 
 let g:WebDevIconsNerdTreeGitPluginForceVAlign = 0
 
-" Fast saving
-nmap <leader>w :w!<cr>
 
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
@@ -155,33 +209,6 @@ set colorcolumn=100
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
 map <space> /
 map <c-space> ?
-
-" Close the current buffer
-map <leader>bd :bd<cr>
-" Close all the buffers
-map <leader>ba :bufdo bd<cr>
-
-map <leader>l :bnext<cr>
-map <leader>h :bprevious<cr>
-
-" Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove 
-map <leader>t<leader> :tabnext 
-
-" Escape search with esc
-nnoremap <silent> <Esc> :nohlsearch<Bar>:echo<CR>
-
-" Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
-
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
-
-" Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Specify the behavior when switching between buffers 
 try
@@ -234,16 +261,6 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" Use `[c` and `]c` for navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 
@@ -261,13 +278,6 @@ endfunction
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for format selected region
-vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
@@ -275,15 +285,6 @@ augroup mygroup
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
-
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-vmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Use `:Format` for format current buffer
 command! -nargs=0 Format :call CocAction('format')
@@ -305,24 +306,6 @@ let g:lightline = {
       \ }
 
 
-
-" Using CocList
-" Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 
 """""" END COG CONFIG
