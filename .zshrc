@@ -39,3 +39,5 @@ do
 done
 
 export FZF_DEFAULT_COMMAND='ag -g ""'
+bindkey -v
+export KEYTIMEOUT=1
