@@ -14,7 +14,7 @@ alias sudo='sudo '
 alias week='date +%V'
 
 # IP addresses
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+# alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en0"
 
 

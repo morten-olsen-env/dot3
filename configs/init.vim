@@ -74,6 +74,7 @@ set si "Smart indent
 set wrap "Wrap lines
 set scrolloff=999
 set timeoutlen=500
+set foldmethod=manual
 " colorscheme railscasts
 " colorscheme molokai
 " colorscheme dracula
@@ -201,6 +202,9 @@ map <leader>bd :bd<cr>
 let g:which_key_map.b.a = 'close all buffers'
 map <leader>ba :bufdo bd<cr>
 
+let g:which_key_map['z'] = { 'name': 'fold' }
+let g:which_key_map.z.c = 'fold function'
+nmap <leader>zc zfa}
 
 let g:which_key_map['m'] = { 'name': 'misc' }
 let g:which_key_map.m.t = 'Toggle mouse'
@@ -291,7 +295,7 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe
 "normal! g'\"" | endif
 
 " add yaml stuffs
-au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
+au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=manual
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 
@@ -386,4 +390,4 @@ endfunction
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
-colorscheme solarized8
+colorscheme gruvbox
