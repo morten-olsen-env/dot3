@@ -51,6 +51,8 @@ Plug 'MattesGroeger/vim-bookmarks'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'jreybert/vimagit'
 Plug 'lifepillar/vim-solarized8'
+Plug 'kjwon15/vim-transparent'
+
 
 call plug#end()
 
