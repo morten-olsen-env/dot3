@@ -73,7 +73,7 @@ set background=dark
 set autoread
 set ai "Auto indent
 set si "Smart indent
-set wrap "Wrap lines
+" set wrap "Wrap lines
 set scrolloff=999
 set timeoutlen=500
 set foldmethod=manual
